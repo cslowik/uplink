@@ -1,5 +1,5 @@
 //
-//  Time.swift
+//  TimeConstants.swift
 //  Uplink
 //
 //  Created by Chris Slowik on 3/29/25.
