@@ -15,6 +15,10 @@ class CompanyUplink: Company {
     var hwSales: [Sale] = []
     var swSales: [Sale] = []
     var news: [News] = []
+
+    override init(name: String = "Uplink", admin: String = "Uplink Admin", type: CompanyType = .commercial) {
+        super.init(name: name, admin: admin, type: type)
+    }
     
     func createMission(employer: Company, type: MissionType, title: String, payment: Int, description: String, snippet: String) {
         let newMission = Mission(
