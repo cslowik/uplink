@@ -15,13 +15,11 @@ struct MainView: View {
             Color.black.ignoresSafeArea()
             VStack(alignment: .leading, spacing: 0) {
                 DateTime(gameState: appModel.gameState)
-//                if let system = gameState.connectedSystem {
-//                    TerminalView(system: system)
-//                } else {
-//                    Text("No system connected")
-//                        .foregroundColor(.gray)
-//                        .padding()
-//                }
+                if let system = appModel.gameState.connectedSystem {
+                    TerminalView(system: system)
+                } else {
+                    SystemListView(gameState: appModel.gameState)
+                }
             }
         }
     }
