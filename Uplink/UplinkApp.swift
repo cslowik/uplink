@@ -9,9 +9,14 @@ import SwiftUI
 
 @main
 struct UplinkApp: App {
+    @StateObject var appModel = AppModel()
     var body: some Scene {
         WindowGroup {
-            MainView().environmentObject(GameState.shared)
+            MainView()
+                .environmentObject(appModel)
+                .onAppear {
+                    //AppStartupService().runUplink(appModel: appModel)
+                }
         }
     }
 }
