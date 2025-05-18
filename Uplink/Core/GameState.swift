@@ -44,14 +44,25 @@ class GameState: ObservableObject {
         let home = System(
             name: SystemInfo.localHost.rawValue,
             ipAddress: SystemInfo.localHost.ipAddress,
-            introMessage: SystemInfo.localHost.welcomeMessage)
+            introMessage: SystemInfo.localHost.welcomeMessage,
+            securityLevel: 1,
+            knownUsers: ["root"])
 
         let uplink = System(
             name: SystemInfo.uplinkPublicAccessMachine.rawValue,
             ipAddress: SystemInfo.uplinkPublicAccessMachine.ipAddress,
-            introMessage: SystemInfo.uplinkPublicAccessMachine.welcomeMessage)
+            introMessage: SystemInfo.uplinkPublicAccessMachine.welcomeMessage,
+            securityLevel: 2,
+            knownUsers: ["admin"])
 
-        availableSystems = [home, uplink]
+        let academic = System(
+            name: SystemInfo.academicDatabase.rawValue,
+            ipAddress: SystemInfo.academicDatabase.ipAddress,
+            introMessage: SystemInfo.academicDatabase.welcomeMessage,
+            securityLevel: 3,
+            knownUsers: ["guest", "admin"])
+
+        availableSystems = [home, uplink, academic]
     }
 
     func printSummary() {
@@ -59,7 +70,7 @@ class GameState: ObservableObject {
         print("Player: \(player.name) | Credits: \(player.credits)")
         print("Available Systems:")
         for sys in availableSystems {
-            print(" - \(sys.name) (\(sys.ipAddress))")
+            print(" - \(sys.name) (\(sys.ipAddress)) | Security: \(sys.securityLevel)")
         }
         print("Company: \(uplinkCompany.name)")
         print("Current Game Time: \(currentGameTime)")

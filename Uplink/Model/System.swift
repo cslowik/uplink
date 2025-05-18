@@ -13,25 +13,34 @@ struct System: Identifiable, Codable {
     let ipAddress: String
     let introMessage: String
     let services: [SystemService]
+    var securityLevel: Int
+    var knownUsers: [String]
     var savedUsernames: [String]
     
-    init(name: String, ipAddress: String, introMessage: String, services: [SystemService], savedUsernames: [String] = []) {
+    init(name: String,
+         ipAddress: String,
+         introMessage: String,
+         services: [SystemService] = [.terminal],
+         securityLevel: Int = 1,
+         knownUsers: [String] = [],
+         savedUsernames: [String] = []) {
         self.id = UUID()
         self.name = name
         self.ipAddress = ipAddress
         self.introMessage = introMessage
         self.services = services
+        self.securityLevel = securityLevel
+        self.knownUsers = knownUsers
         self.savedUsernames = savedUsernames
     }
-}
-
-extension System {
     init(from computer: Computer) {
         self.id = UUID()
         self.name = computer.name
         self.ipAddress = computer.ipAddress
         self.introMessage = "Welcome to \(computer.name)."
         self.services = Computer.defaultServices(for: computer)
+        self.securityLevel = 1
+        self.knownUsers = []
         self.savedUsernames = []
     }
 }
