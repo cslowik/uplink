@@ -47,6 +47,7 @@ class GameState: ObservableObject {
             introMessage: SystemInfo.localHost.welcomeMessage,
             securityLevel: 1,
             knownUsers: ["root"])
+            services: [.terminal, .fileBrowser])
 
         let uplink = System(
             name: SystemInfo.uplinkPublicAccessMachine.rawValue,
@@ -54,6 +55,7 @@ class GameState: ObservableObject {
             introMessage: SystemInfo.uplinkPublicAccessMachine.welcomeMessage,
             securityLevel: 2,
             knownUsers: ["admin"])
+            services: [.login, .missionBoard])
 
         let academic = System(
             name: SystemInfo.academicDatabase.rawValue,
