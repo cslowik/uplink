@@ -20,6 +20,8 @@ enum Screen {
 class AppModel: ObservableObject {
     @Published var currentScreen: Screen = .login
     @Published var isGameLoaded: Bool = false
+    /// Shared game state accessible throughout the app
+    @Published var gameState: GameState = GameState.shared
     /*
      static func loadSavedUsernames()->[String] {
      if let names = UserDefaults.standard.array(forKey: "SavedUsernames") as? [String] {
