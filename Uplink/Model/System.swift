@@ -7,28 +7,44 @@
 
 import Foundation
 
-struct System: Identifiable, Hashable {
-    let id: UUID = UUID()
+struct System: Identifiable, Codable {
+    let id: UUID
     let name: String
     let ipAddress: String
     let introMessage: String
-    //let services: [SystemService]
+    let services: [SystemService]
+    var savedUsernames: [String]
     
-    init(name: String, ipAddress: String, introMessage: String/*, services: [SystemService]*/) {
+    init(name: String, ipAddress: String, introMessage: String, services: [SystemService], savedUsernames: [String] = []) {
+        self.id = UUID()
         self.name = name
         self.ipAddress = ipAddress
         self.introMessage = introMessage
-        //self.services = services
-    }
-    init(with info: SystemInfo) {
-        self.name = info.rawValue
-        self.ipAddress = info.ipAddress
-        self.introMessage = info.welcomeMessage
-        //self.services = info.services
+        self.services = services
+        self.savedUsernames = savedUsernames
     }
 }
 
-enum SystemService: Identifiable {
+extension System {
+    init(from computer: Computer) {
+        self.id = UUID()
+        self.name = computer.name
+        self.ipAddress = computer.ipAddress
+        self.introMessage = "Welcome to \(computer.name)."
+        self.services = Computer.defaultServices(for: computer)
+        self.savedUsernames = []
+    }
+}
+
+enum SystemStep {
+    case intro
+    case authPrompt
+    case login
+    case register
+    case services
+}
+
+enum SystemService: Codable, Identifiable {
     case login
     case terminal
     case fileBrowser
