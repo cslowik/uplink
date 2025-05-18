@@ -11,7 +11,7 @@ import SwiftUI
 struct UplinkApp: App {
     var body: some Scene {
         WindowGroup {
-            ContentView()
+            MainView().environmentObject(GameState.shared)
         }
     }
 }
