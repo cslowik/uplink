@@ -44,12 +44,14 @@ class GameState: ObservableObject {
         let home = System(
             name: SystemInfo.localHost.rawValue,
             ipAddress: SystemInfo.localHost.ipAddress,
-            introMessage: SystemInfo.localHost.welcomeMessage)
+            introMessage: SystemInfo.localHost.welcomeMessage,
+            services: [.terminal, .fileBrowser])
 
         let uplink = System(
             name: SystemInfo.uplinkPublicAccessMachine.rawValue,
             ipAddress: SystemInfo.uplinkPublicAccessMachine.ipAddress,
-            introMessage: SystemInfo.uplinkPublicAccessMachine.welcomeMessage)
+            introMessage: SystemInfo.uplinkPublicAccessMachine.welcomeMessage,
+            services: [.login, .missionBoard])
 
         availableSystems = [home, uplink]
     }

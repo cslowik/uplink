@@ -19,6 +19,10 @@ class CompanyUplink: Company {
     override init(name: String = "Uplink", admin: String = "Uplink Admin", type: CompanyType = .commercial) {
         super.init(name: name, admin: admin, type: type)
     }
+
+    required init(from decoder: Decoder) throws {
+        try super.init(from: decoder)
+    }
     
     func createMission(employer: Company, type: MissionType, title: String, payment: Int, description: String, snippet: String) {
         let newMission = Mission(
