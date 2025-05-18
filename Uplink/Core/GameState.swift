@@ -21,27 +21,48 @@ class GameState: ObservableObject {
     
     @Published var gameSpeed: GameSpeed = .normal
     @Published var player: Player
+    @Published var uplinkCompany: CompanyUplink
     @Published var currentGameTime: Date = Date()
     
-    @Published var availableSystems: [System] = [
-        System(
-            name: SystemInfo.localHost.rawValue,
-            ipAddress: SystemInfo.localHost.ipAddress,
-            introMessage: SystemInfo.localHost.welcomeMessage),
-        System(
-            name: SystemInfo.uplinkPublicAccessMachine.rawValue,
-            ipAddress: SystemInfo.uplinkPublicAccessMachine.ipAddress,
-            introMessage: SystemInfo.uplinkPublicAccessMachine.welcomeMessage)
-    ]
+    @Published var availableSystems: [System] = []
 
     @Published var connectedSystem: System? = nil
     
 
-    init() {
-        self.player = Player(name: "Test Player")
+    init(playerName: String = "Test Player") {
+        self.player = Player(name: playerName)
+        self.uplinkCompany = CompanyUplink()
         self.ticker = GameTicker(gameState: self)
+
+        setupInitialWorld()
+
         ticker?.start()
-        print("Player: \(player.name), Credits: \(player.credits)")
+        printSummary()
+    }
+
+    private func setupInitialWorld() {
+        let home = System(
+            name: SystemInfo.localHost.rawValue,
+            ipAddress: SystemInfo.localHost.ipAddress,
+            introMessage: SystemInfo.localHost.welcomeMessage)
+
+        let uplink = System(
+            name: SystemInfo.uplinkPublicAccessMachine.rawValue,
+            ipAddress: SystemInfo.uplinkPublicAccessMachine.ipAddress,
+            introMessage: SystemInfo.uplinkPublicAccessMachine.welcomeMessage)
+
+        availableSystems = [home, uplink]
+    }
+
+    func printSummary() {
+        print("=== Game State ===")
+        print("Player: \(player.name) | Credits: \(player.credits)")
+        print("Available Systems:")
+        for sys in availableSystems {
+            print(" - \(sys.name) (\(sys.ipAddress))")
+        }
+        print("Company: \(uplinkCompany.name)")
+        print("Current Game Time: \(currentGameTime)")
     }
     
     func setGameSpeed(_ speed: GameSpeed) {

@@ -40,5 +40,10 @@ class Company: Codable {
     //var size: Int
     //var growth: Int
     //var alignment: Int
-    
+
+    init(name: String, admin: String, type: CompanyType) {
+        self.name = name
+        self.admin = admin
+        self.type = type
+    }
 }
