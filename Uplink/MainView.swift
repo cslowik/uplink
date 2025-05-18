@@ -8,13 +8,13 @@
 import SwiftUI
 
 struct MainView: View {
-    @EnvironmentObject var gameState: GameState
+    @EnvironmentObject var appModel: AppModel
 
     var body: some View {
         ZStack(alignment: .top) {
             Color.black.ignoresSafeArea()
             VStack(alignment: .leading, spacing: 0) {
-                DateTime(gameState: gameState)
+                DateTime(gameState: appModel.gameState)
 //                if let system = gameState.connectedSystem {
 //                    TerminalView(system: system)
 //                } else {
@@ -28,5 +28,5 @@ struct MainView: View {
 }
 
 #Preview {
-    MainView().environmentObject(GameState.shared)
+    MainView().environmentObject(AppModel())
 }
