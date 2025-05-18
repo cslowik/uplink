@@ -46,7 +46,7 @@ class GameState: ObservableObject {
             ipAddress: SystemInfo.localHost.ipAddress,
             introMessage: SystemInfo.localHost.welcomeMessage,
             securityLevel: 1,
-            knownUsers: ["root"])
+            knownUsers: ["root"],
             services: [.terminal, .fileBrowser])
 
         let uplink = System(
@@ -54,7 +54,7 @@ class GameState: ObservableObject {
             ipAddress: SystemInfo.uplinkPublicAccessMachine.ipAddress,
             introMessage: SystemInfo.uplinkPublicAccessMachine.welcomeMessage,
             securityLevel: 2,
-            knownUsers: ["admin"])
+            knownUsers: ["admin"],
             services: [.login, .missionBoard])
 
         let academic = System(
